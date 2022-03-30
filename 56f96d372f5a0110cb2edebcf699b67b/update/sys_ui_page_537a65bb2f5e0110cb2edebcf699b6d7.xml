@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[addLoadEvent(function() {
+
+    //initiate some fucntions onLoad
+    addEventListenersToTextInputFields();
+    addEventListenerEscKeyPress();
+    setSwtichValues();
+
+});
+
+
+
+
+
+/*
+	Enable user to press Enter to initiate action
+	Search for the text input fields, add "keyup" eventListener to it -> find out which input field was the event generated from -> imitate user click on the respective button element
+*/
+function addEventListenersToTextInputFields() {
+
+    var container = document.querySelector('.custom-page-wrapper');
+    var text_input_fields = container.querySelectorAll('input[type=text]');
+
+    for (var i = 0; i < text_input_fields.length; i++) {
+        text_input_fields[i].addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                //get the Text Input field  (event) Classsname -> search for the same classname-btn and initiate click
+                document.getElementsByClassName(event.srcElement.attributes[0].value + "-btn")[0].click();
+
+            }
+        });
+    }
+}
+
+function addEventListenerEscKeyPress() {
+    document.addEventListener("keyup", function(event) {
+        if (event.key === "Escape") {
+            closeDialog();
+        }
+    });
+
+}
+
+
+
+/*
+Check which radio button (ServiceNOW instance) is selected
+*/
+function getSelectedInstance() {
+    return document.querySelector('input[name="instance"]:checked').value;
+}
+
+/*
+Fetch the value of from any text box
+Param textBoxName: string, class name of the respective text box
+*/
+function getInputTextValue(textBoxName) {
+    return document.getElementsByClassName(textBoxName)[0].value;
+}
+
+
+function getNav() {
+    if (window.location.pathname != "/nav_to.do") {
+        window.location = "/nav_to.do?uri=" + window.location.pathname + window.location.search;
+    } else {
+        return;
+    }
+}
+
+function openProperty() {
+    window.open("https://" + getSelectedInstance() + ".service-now.com/nav_to.do?uri=%2Fsys_properties.do%3Fsysparm_query%3Dname%3D" + getInputTextValue("property_name"));
+}
+
+function orderGroupByList(order) {
+
+    window.location = window.location.pathname + window.location.search + "&sysparm_group_sort=COUNT" + order;
+}
+
+
+function showXML() {
+    window.open(window.location + "&XML");
+}
+
+function codeSearch(){
+window.open("https://dev66017.service-now.com/x_msgfi_codesearch_MS_CodeSearch.do?sysparm_search=" + getInputTextValue("code_search"));
+	
+
+
+
+}
+
+
+
+
+function setPreferences(preference, bool) {
+    setPreference(preference, bool.toString());
+}
+
+function setSwtichValues() {
+	var container = document.querySelector('.user_preferences');
+    var switches = container.querySelectorAll('input[type=checkbox]');
+	for (var i=0; i< switches.length; i++) {
+	
+		var pref_name = switches[i].getAttribute("id");
+		if(getPreference(pref_name) === "true"){
+  switches[i].checked  = true;
+		}
+ 
+}
+
+ 
+}
+
+function myFunc1() {
+
+
+    alert("dummy button 1");
+
+}
+
+
+
+function myFunc2() {
+
+    alert('dummy button 2');
+}
+
+
+
+
+
+function closeDialog() {
+    GlideDialogWindow.get().destroy(); //Close the dialog window
+    return;
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_359958_devtool_DevTool.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	
+<link href="fe7e58e82f750510cb2edebcf699b686.cssdbx?" rel="stylesheet" type="text/css" />
+	
+	<h2>Perform actions on the current Record / List</h2>
+	<div id='custom-page-wrapper' class="custom-page-wrapper_top">
+	
+   <div id='custom-row' name="1st_row_top" style="height: 40px;">
+      <div id='custom-column' name="1st_col_top">
+         <div>
+         <button name="getNav" id="buttons-initiate-action"  onClick="getNav()">Get Application Menu</button>
+         </div>
+      </div>
+      <div id='custom-column' name="2nd_col_top">
+         <div>
+         <button name="orderGroupByListDESC" id="buttons-initiate-action"  onClick="orderGroupByList('DESC')">Order Group By List DESC</button>
+         </div>
+      </div>
+	    <div id='custom-column' name="3rd_col_top">
+         <div>
+        <button name="orderGroupByListASC" id="buttons-initiate-action"  onClick="orderGroupByList('ASC')">Order Group By List ASC</button>
+         </div>
+      </div>
+	    <div id='custom-column' name="4th_col_top">
+         <div>
+       <button name="showXML" id="buttons-initiate-action"  onClick="showXML()">Show ChadXML</button>
+         </div>
+      </div>
+   </div>
+	
+   <div id='custom-row' name="2nd_row_top" style="height: 10px;">
+      <div id='custom-column' name="5th_col_top">
+         <div>
+          <button name="orderGroupByListASC" id="buttons-initiate-action"  onClick="extendFieldLabels()">Extend field labels</button>
+         </div>
+      </div>
+      <div id='custom-column' name="6th_col_top">
+         <div>
+         <button name="orderGroupByListASC" id="buttons-initiate-action"  onClick="someFunc()">dummy button</button>
+         </div>
+      </div>
+	     <div id='custom-column' name="7th_col_top">
+         <div>
+         <button name="orderGroupByListASC" id="buttons-initiate-action"  onClick="someFunc()">dummy button</button>
+         </div>
+	   </div>
+		<div id='custom-column' name="8th_col_top">
+         <div>
+          <button name="orderGroupByListASC" id="buttons-initiate-action"  onClick="orderGroupByList('ASC')">dummy button</button>
+         </div>
+      </div>
+   </div>
+	
+</div>
+	
+	
+	
+	
+
+	
+<hr style="border-top: 3px solid #ddd; margin-top: 40px; margin-bottom: 10px"></hr>
+	
+	<h2>Set your preferences</h2>
+	
+	
+	<div class="user_preferences">
+		
+		<div>
+		Load forms with field database name
+			
+			<label class="switch"> 
+			<input type="checkbox" id="devtool_extend_field_labels" name="switch-field_names" onCLick="setPreferences('devtool_extend_field_labels', this.checked)"></input>
+			<span class="slider round"></span>
+			</label>
+		</div>
+		
+		<div>
+		Save forms with CTRL + S
+			
+			<label class="switch"> 
+			<input type="checkbox" id="devtool_save_form_ctrls" name="switch-save_form_ctrls" onCLick="setPreferences('devtool_save_form_ctrls', this.checked)"></input>
+			<span class="slider round"></span>
+			</label>
+		</div>
+		
+	</div>
+	
+	
+		
+	
+
+
+		
+		<hr style="border-top: 3px solid #ddd; margin-top: 40px; margin-bottom: 10px"></hr>
+
+<h2>Navigate our instances</h2>
+<div class="instance-container" style="margin: auto; width: 50%;  padding: 15px">
+   <label for="dev">
+      <input type="radio" name="instance" class="dev" id="dev" value="aldidev" checked="true" />
+      <svg viewBox="0 0 24 24">
+         <text  font-size="14" y="18" x="1">DEV</text>
+      </svg>
+   </label>
+   <label for="test">
+      <input type="radio" name="instance" class="test" id="test" value="alditest" />
+      <svg viewBox="0 0 24 24">
+         <text  font-size="14" y="18" x="1">TEST</text>
+      </svg>
+   </label>
+   <label for="qa">
+      <input type="radio" name="instance" class="qa" id="qa" value="aldiqa"  />
+      <svg viewBox="0 0 24 24">
+         <text  font-size="14" y="18" x="1">QA</text>
+      </svg>
+   </label>
+   <label for="prod">
+      <input type="radio" name="instance" class="prod" id="prod" value="aldiprod" />
+      <svg viewBox="0 0 24 24">
+         <text  font-size="14" y="18" x="1">PRD</text>
+      </svg>
+   </label>
+   <label for="upg">
+      <input type="radio" name="instance" class="upg" id="upg" value="aldiupgrade" />
+      <svg viewBox="0 0 24 24">
+         <text  font-size="14" y="18" x="1">UPG</text>
+      </svg>
+   </label>
+</div>
+	
+	
+	
+<div id='custom-page-wrapper' class="custom-page-wrapper">
+	
+   <div id='custom-row' name="1st_row">
+      <div id='custom-column' name="1st_col">
+         <div>
+            <div class="text-input-group" id="text-input-group">
+               <div>  
+                  <input type="text" id="text-input" name="property_name" class="property_name"> </input>
+                  <label for="property_name">System Property name</label>
+               </div>
+               <div>
+                  <button  id="buttons-initiate-action"  onClick="openProperty()" class="property_name-btn">Open Property</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id='custom-column' name="2nd_col">
+         <div>
+            <div class="text-input-group" id="text-input-group">
+               <div>  
+                  <input type="text" id="text-input" name="code_search" class="code_search" > </input>
+                  <label for="code_search">Code Search</label>
+               </div>
+               <div>
+                  <button  id="buttons-initiate-action"  onClick="codeSearch()" class="code_search-btn">Code Search</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+	
+   <div id='custom-row' name="2nd_row">
+      <div id='custom-column' name="3rd_col">
+         <div>
+            <div class="text-input-group" id="text-input-group">
+               <div>  
+                  <input type="text" id="text-input" name="dummy_input2" class="dummy_input2" > </input>
+                  <label for="dummy_input1">Dummy label</label>
+               </div>
+               <div>
+                  <button  id="buttons-initiate-action"  onClick="myFunc2()" class="dummy_input2-btn">dummy button2</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id='custom-column' name="4th_col">
+         <div>
+            Some Text in Row 2, Column Two
+         </div>
+      </div>
+   </div>
+	
+</div>
+	
+	
+	
+<div>
+   <hr style="border-top: 3px solid #ddd"></hr>	
+   <button id="buttons-close" onClick="closeDialog()">Close window</button>
+</div>
+	
+	
+	
+</j:jelly>]]></html>
+        <name>DevTool</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-03-24 15:26:48</sys_created_on>
+        <sys_id>537a65bb2f5e0110cb2edebcf699b6d7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>DevTool</sys_name>
+        <sys_package display_value="DevTool" source="x_359958_devtool">56f96d372f5a0110cb2edebcf699b67b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="DevTool">56f96d372f5a0110cb2edebcf699b67b</sys_scope>
+        <sys_update_name>sys_ui_page_537a65bb2f5e0110cb2edebcf699b6d7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-03-24 15:26:48</sys_updated_on>
+    </sys_ui_page>
+</record_update>

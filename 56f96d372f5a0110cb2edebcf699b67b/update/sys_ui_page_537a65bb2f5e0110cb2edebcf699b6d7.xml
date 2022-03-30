@@ -143,6 +143,7 @@ function closeDialog() {
 	
 <link href="fe7e58e82f750510cb2edebcf699b686.cssdbx?" rel="stylesheet" type="text/css" />
 	
+	
 	<h2>Perform actions on the current Record / List</h2>
 	<div id='custom-page-wrapper' class="custom-page-wrapper_top">
 	
@@ -340,13 +341,13 @@ function closeDialog() {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2022-03-24 15:26:48</sys_created_on>
         <sys_id>537a65bb2f5e0110cb2edebcf699b6d7</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>DevTool</sys_name>
         <sys_package display_value="DevTool" source="x_359958_devtool">56f96d372f5a0110cb2edebcf699b67b</sys_package>
         <sys_policy/>
         <sys_scope display_value="DevTool">56f96d372f5a0110cb2edebcf699b67b</sys_scope>
         <sys_update_name>sys_ui_page_537a65bb2f5e0110cb2edebcf699b6d7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2022-03-24 15:26:48</sys_updated_on>
+        <sys_updated_on>2022-03-30 09:43:02</sys_updated_on>
     </sys_ui_page>
 </record_update>
